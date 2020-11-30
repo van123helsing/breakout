@@ -41,27 +41,23 @@ var Breakout = new Phaser.Class({
     },
 
     create: function () {
-        var w = $(window).width()-5;
-        var h = $(window).height()-5;
-        w = w/2133;
-        h = h/1041;
-
         this.paddle = this.physics.add.image(this.cameras.main.centerX, this.game.config.height - 50, 'paddle')
             .setImmovable()
-            .setScale(w,h);
+            .setScale(SCALE_W,SCALE_H);
 
         this.ball = this.physics.add.image(this.cameras.main.centerX, this.game.config.height - 80, 'ball')
             .setCollideWorldBounds(true)
             .setBounce(1)
-            .setScale(w,h);
+            .setScale(SCALE_W,SCALE_H);
 
         var allBricks = this.setAllBricks(level1);
         for (i in allBricks) {
             var tmp = this.physics.add.staticGroup({
                 key: allBricks[i].brick,
                 frameQuantity: 1,
-                gridAlign: {width: 20, cellWidth: 60*w, cellHeight: 60*h, x: allBricks[i].x, y: allBricks[i].y}
-            });
+                gridAlign: { x: allBricks[i].x, y: allBricks[i].y}
+            })
+            tmp.children.entries[0].setScale(SCALE_W,SCALE_H);
             if (this.bricks == null)
                 this.bricks = tmp;
             else
@@ -100,9 +96,10 @@ var Breakout = new Phaser.Class({
             .setStyle({backgroundColor: '#111'})
             .setInteractive({useHandCursor: true})
             .on('pointerdown', () => {
-                if(this.ball.body !== undefined)
+                if(this.ball.body !== undefined) {
                     var velocity = this.ball.body.velocity.clone()
-                this.ball.setVelocity(0, 0);
+                    this.ball.setVelocity(0, 0);
+                }
                 swal({
                     title: "Exit Game?",
                     text: "If you go to the menu the game will end. Sure you wanna do this?",
@@ -229,8 +226,8 @@ var Breakout = new Phaser.Class({
 
                 array.push({
                     brick: brickName,
-                    x: j * 64,
-                    y: 100 + i * 32
+                    x: j * 64*SCALE_W,
+                    y: 100 + i * 32*SCALE_H
                 });
             }
         }

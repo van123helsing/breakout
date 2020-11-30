@@ -1,6 +1,8 @@
 var game;
 var queue = [];
 var loaded = false;
+var SCALE_W = ($(window).width()-5)/2133;
+var SCALE_H = ($(window).height()-5)/1041;
 
 
 window.onload = async function() {
@@ -23,8 +25,9 @@ window.onload = async function() {
             if(game != null && data != null && game.scene != null && game.scene.keys != null && game.scene.keys.breakout != null && game.scene.keys.breakout.paddle != null){
                 queue.push(data.x);
                 queue.shift();
-                game.scene.keys.breakout.paddle.x = Phaser.Math.Clamp(queue.reduce((a, b) => a + b, 0)/queue.length, game.scene.keys.breakout.paddle.width / 2,
-                                                    game.config.width - game.scene.keys.breakout.paddle.width / 2);
+                var paddl = game.scene.keys.breakout.paddle;
+                paddl.x = Phaser.Math.Clamp(queue.reduce((a, b) => a + b, 0)/queue.length, paddl.width*SCALE_W / 2,
+                                                    game.config.width - paddl.width*SCALE_W / 2);
             }
             // console.log(data.x); /* data is an object containing an x and y key which are the x and y prediction coordinates (no bounds limiting) */
           //   console.log(clock); /* elapsed time in milliseconds since webgazer.begin() was called */
