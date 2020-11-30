@@ -68,7 +68,7 @@ function Start(){
         $("#mainScreen").hide();
         ClearCanvas();
 
-        if (PointCalibrate >= 0)
+        if (PointCalibrate >= 9)
             game = new Phaser.Game(config);
         else
             Restart();
