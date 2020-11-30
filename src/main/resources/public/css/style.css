@@ -124,14 +124,7 @@ li {
 
 
 .centerPage {
-    height: 600px;
-    width: 600px;
     background: #c0c1c4;
-
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    margin-top: -300px;
-    margin-left: -300px;
+    vertical-align: middle;
     text-align: center;
 }

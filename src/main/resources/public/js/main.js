@@ -38,8 +38,8 @@ window.onload = async function() {
 
         //Set up the main canvas. The main canvas is used to calibrate the webgazer.
         var canvas = document.getElementById("plotting_canvas");
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
+        canvas.width = $(window).width()-5;
+        canvas.height = $(window).height()-5;
         canvas.style.position = 'fixed';
     };
     setup();

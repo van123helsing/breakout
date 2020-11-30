@@ -41,21 +41,26 @@ var Breakout = new Phaser.Class({
     },
 
     create: function () {
+        var w = $(window).width()-5;
+        var h = $(window).height()-5;
+        w = w/2133;
+        h = h/1041;
+
         this.paddle = this.physics.add.image(this.cameras.main.centerX, this.game.config.height - 50, 'paddle')
-            .setImmovable();
+            .setImmovable()
+            .setScale(w,h);
 
         this.ball = this.physics.add.image(this.cameras.main.centerX, this.game.config.height - 80, 'ball')
             .setCollideWorldBounds(true)
-            .setBounce(1);
-
-        this.ball.setData("onPaddle", true);
+            .setBounce(1)
+            .setScale(w,h);
 
         var allBricks = this.setAllBricks(level1);
         for (i in allBricks) {
             var tmp = this.physics.add.staticGroup({
                 key: allBricks[i].brick,
                 frameQuantity: 1,
-                gridAlign: {width: 20, cellWidth: 60, cellHeight: 60, x: allBricks[i].x, y: allBricks[i].y}
+                gridAlign: {width: 20, cellWidth: 60*w, cellHeight: 60*h, x: allBricks[i].x, y: allBricks[i].y}
             });
             if (this.bricks == null)
                 this.bricks = tmp;
@@ -95,7 +100,8 @@ var Breakout = new Phaser.Class({
             .setStyle({backgroundColor: '#111'})
             .setInteractive({useHandCursor: true})
             .on('pointerdown', () => {
-                var velocity = this.ball.body.velocity.clone()
+                if(this.ball.body !== undefined)
+                    var velocity = this.ball.body.velocity.clone()
                 this.ball.setVelocity(0, 0);
                 swal({
                     title: "Exit Game?",
@@ -114,7 +120,8 @@ var Breakout = new Phaser.Class({
                         this.ball.destroy();
                         $("#mainScreen").show();
                     } else {
-                        this.ball.setVelocity(velocity.x, velocity.y);
+                        if(this.ball.body !== undefined)
+                            this.ball.setVelocity(velocity.x, velocity.y);
                     }
                 })
             })
@@ -234,8 +241,8 @@ var Breakout = new Phaser.Class({
 
 const config = {
     type: Phaser.AUTO,
-    width: window.innerWidth - 5,
-    height: window.innerHeight - 5,
+    width: $(window).width()-5,
+    height: $(window).height()-5,
     scene: [ Breakout ],
     backgroundColor: '#222',
     physics: {
