@@ -5,7 +5,7 @@ RUN mkdir /app
 
 WORKDIR /app
 
-ADD ./target/spring-boot-starter-parent-1.0.0.jar /app
+ADD target/spring-boot-starter-parent-1.0.0.jar /app
 
 EXPOSE 8080
 
