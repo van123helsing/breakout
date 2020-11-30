@@ -1,12 +1,5 @@
-
 FROM openjdk:8
-
-RUN mkdir /app
-
-WORKDIR /app
-
-ADD target/spring-boot-starter-parent-1.0.0.jar /app
-
+ARG JAR_FILE=target/*.jar
+COPY ${JAR_FILE} app.jar
 EXPOSE 8080
-
-CMD ["java", "-jar", "spring-boot-starter-parent-1.0.0.jar"]
+ENTRYPOINT ["java","-jar","/app.jar"]
