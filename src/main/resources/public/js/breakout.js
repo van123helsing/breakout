@@ -236,7 +236,7 @@ var Breakout = new Phaser.Class({
     }
 });
 
-const config = {
+let configBreakout = {
     type: Phaser.AUTO,
     width: $(window).width()-5,
     height: $(window).height()-5,

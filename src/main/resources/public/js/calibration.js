@@ -98,7 +98,9 @@ $(document).ready(function () {
                                 //clear the calibration & hide the last middle button
                                 ClearCanvas();
                                 //webgazer.showPredictionPoints(false);
-                                game = new Phaser.Game(config);
+                                configBreakout.height = $(window).height()-5;
+                                configBreakout.width = $(window).width()-5;
+                                game = new Phaser.Game(configBreakout);
 
                             } else {
                                 //use restart function to restart the calibration

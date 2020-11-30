@@ -71,8 +71,11 @@ function Start(){
         $("#mainScreen").hide();
         ClearCanvas();
 
-        if (PointCalibrate >= 9)
-            game = new Phaser.Game(config);
+        if (PointCalibrate >= 9) {
+            configBreakout.height = $(window).height()-5;
+            configBreakout.width = $(window).width()-5;
+            game = new Phaser.Game(configBreakout);
+        }
         else
             Restart();
     }
